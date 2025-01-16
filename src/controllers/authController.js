@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { register, validateRegistration } from "../services/authService.js";
+import { login, register, validateRegistration } from "../services/authService.js";
+import { validatePassword } from "firebase/auth";
 
 
 const authController = Router();
@@ -35,6 +36,24 @@ authController.post('/register', async (req, res) => {
     } catch(err){
         console.error(err.message)
         res.status(400).render('register', { title: 'Register Page', layout: 'auth', error: validation.message })
+    }
+
+})
+
+authController.post('/login', async (req, res) => {
+    const data = req.body
+    
+    try {
+        const userCredential = await login({email: data.email, password: data.password })
+
+        if (userCredential) {
+            console.log(userCredential);
+            res.redirect('/') 
+        }
+
+    } catch(err){
+        console.error(err.message)
+        res.status(400).render('login', { title: 'Login Page', layout: 'auth', error: err.message })
     }
 
 
