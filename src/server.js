@@ -1,5 +1,6 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
+import routes from './routes.js';
 
 
 const app = express();
@@ -12,9 +13,6 @@ app.set('views', 'src/views')
 
 app.use(express.static('public'))
 
-// Route for the homepage
-app.get('/', (req, res) => {
-  res.render('home', { title: 'Spaghetti Shop' });
-});
+app.use(routes)
 
 app.listen(5000, () => console.log('Server listens on port: 5000'));
