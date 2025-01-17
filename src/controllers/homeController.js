@@ -4,7 +4,7 @@ const homeController = Router();
 
 homeController.get('/', (req, res) => {
 
-    res.render('home', { title: 'Spaghetti Shop' })
+    res.render('home', { title: 'Planet Pizza' })
 
 })
 
