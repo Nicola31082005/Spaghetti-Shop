@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, register, validateRegistration } from "../services/authService.js";
+import { login, logout, register, validateRegistration } from "../services/authService.js";
 
 
 
@@ -58,6 +58,19 @@ authController.post('/login', async (req, res) => {
 
 })
 
+authController.get('/logout', async (req, res) => {
+
+    try {
+        await logout()
+        req.isAuthenticated = false;
+        req.locals.isAuthenticated = false;
+    
+        res.redirect('/')
+    } catch(err) {
+        console.error('Logout Error', err)
+        res.status(500).send('An error occurred during logout.')
+    }
+})
 
 
 export default authController
