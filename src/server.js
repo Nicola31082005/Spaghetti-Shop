@@ -1,19 +1,26 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
 import routes from './routes.js';
-
+import checkAuthentication from './middlewares/authenticationState.js';
 
 const app = express();
 
-
 // Set up Handlebars
-app.engine('hbs', handlebars.engine({ extname: 'hbs',  partialsDir: 'src/views/partials' }));
+app.engine('hbs', handlebars.engine({ extname: 'hbs' }));
 app.set('view engine', 'hbs');
-app.set('views', 'src/views')
+app.set('views', 'src/views');
 
-app.use(express.urlencoded({ extended: false }))
-app.use(express.static('public'))
+// Middleware for authentication check (before routes)
+app.use(checkAuthentication);  // Ensure this is before the routes so the auth state is available in templates
 
-app.use(routes)
+// Body parser middleware
+app.use(express.urlencoded({ extended: false }));
 
+// Serve static files (e.g., CSS, images, JS)
+app.use(express.static('public'));
+
+// Your route handlers
+app.use(routes);  // Routes should come after middleware
+
+// Start server
 app.listen(5000, () => console.log('Server listens on port: 5000'));

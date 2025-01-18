@@ -28,11 +28,14 @@
           ℹ️ About
         </a>
       </li>
+      
+      {{#unless isAuthenticated}}
       <li>
         <a href="/login" class="text-lg font-medium text-gray-700 hover:text-blue-500 transition-colors duration-300">
           🔐 Login
         </a>
       </li>
+      {{/unless}}
     </ul>
     </div>
   </nav>

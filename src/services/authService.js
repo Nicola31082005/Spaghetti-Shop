@@ -13,20 +13,15 @@ export function validateRegistration({ password, confirmPassword }) {
     return { success: true }
 }
 
-export function validatePassword({ email, password }) {
-    
-    
-}
 
 export async function register({ email, password }) {
    try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password)
     return userCredential
    } catch(error) {
-    console.error(error.message)
+        throw new Error(error.message)
    } 
 }
-
 
 export async function login({ email, password }) {
    try {
@@ -36,3 +31,4 @@ export async function login({ email, password }) {
         throw new Error(error.message)
     }
 }
+

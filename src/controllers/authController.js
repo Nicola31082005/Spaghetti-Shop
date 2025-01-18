@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { login, register, validateRegistration } from "../services/authService.js";
-import { validatePassword } from "firebase/auth";
+
 
 
 const authController = Router();
@@ -35,7 +35,7 @@ authController.post('/register', async (req, res) => {
 
     } catch(err){
         console.error(err.message)
-        res.status(400).render('register', { title: 'Register Page', layout: 'auth', error: validation.message })
+        res.status(400).render('register', { title: 'Register Page', layout: 'auth', error: err.message })
     }
 
 })
@@ -56,7 +56,8 @@ authController.post('/login', async (req, res) => {
         res.status(400).render('login', { title: 'Login Page', layout: 'auth', error: err.message })
     }
 
-
 })
+
+
 
 export default authController
