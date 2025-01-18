@@ -7,7 +7,7 @@ const app = express();
 
 
 // Set up Handlebars
-app.engine('hbs', handlebars.engine({ extname: 'hbs' }));
+app.engine('hbs', handlebars.engine({ extname: 'hbs',  partialsDir: 'src/views/partials' }));
 app.set('view engine', 'hbs');
 app.set('views', 'src/views')
 
