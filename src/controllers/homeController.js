@@ -9,7 +9,6 @@ homeController.get('/', (req, res) => {
 })
 
 homeController.get('/about', (req, res) => {
-    console.log(req.isAuthenticated);
     
     res.render('about', { title: 'About Page' })
 
