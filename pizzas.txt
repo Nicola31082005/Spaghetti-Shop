@@ -1,4 +1,4 @@
-const demoPizzas = [
+[
     {
       id: 1,
       name: "Margherita",
@@ -31,12 +31,4 @@ const demoPizzas = [
       price: 9.99,
       category: "Vegetarian",
     },
-];
-  
-
-
-export default function getAllPizzas() {
-
-    return demoPizzas
-
-} 
+]
