@@ -14,5 +14,9 @@ homeController.get('/about', (req, res) => {
 
 })
 
+homeController.get('/about-contacts', (req, res) => {
+    res.render('contacts', { title: 'Contacts' })
+})
+
 
 export default homeController
