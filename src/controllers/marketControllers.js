@@ -10,7 +10,7 @@ marketController.get('/pizzas', (req, res) => {
     res.render('pizzas', { title: 'Pizzas', pizzas: pizzas })
 })
 
-marketController.get('/cart/add/:id', (req, res) => {
+marketController.get('/pizzas/:id', (req, res) => {
     const currentId = Number(req.params.id);
     const currentPizza = getAllPizzas().find(pizzaObj => pizzaObj.id === currentId)
 
