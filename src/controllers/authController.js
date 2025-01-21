@@ -47,7 +47,6 @@ authController.post('/login', async (req, res) => {
         const userCredential = await login({email: data.email, password: data.password })
 
         if (userCredential) {
-            console.log(userCredential);
             res.redirect('/') 
         }
 
@@ -63,7 +62,7 @@ authController.get('/logout', async (req, res) => {
     try {
         await logout()
         req.isAuthenticated = false;
-        req.locals.isAuthenticated = false;
+        res.locals.isAuthenticated = false;
     
         res.redirect('/')
     } catch(err) {
