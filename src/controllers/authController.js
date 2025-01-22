@@ -6,11 +6,11 @@ import { login, logout, register, validateRegistration } from "../services/authS
 const authController = Router();
 
 authController.get('/login', (req, res) => {
-    res.render('login', { title: 'Login Page', layout: 'auth' })
+    res.render('verificationViews/login', { title: 'Login Page', layout: 'auth' })
 })
 
 authController.get('/register', (req, res) => {
-    res.render('register', { title: 'Register Page', layout: 'auth' })
+    res.render('verificationViews/register', { title: 'Register Page', layout: 'auth' })
 })
 
 authController.post('/register', async (req, res) => {
@@ -22,7 +22,7 @@ authController.post('/register', async (req, res) => {
     })
 
     if (!validation.success) {   
-        return res.status(400).render('register', { title: 'Register Page', layout: 'auth', error: validation.message })
+        return res.status(400).render('verificationViews/register', { title: 'Register Page', layout: 'auth', error: validation.message })
     }
 
     try {
@@ -35,7 +35,7 @@ authController.post('/register', async (req, res) => {
 
     } catch(err){
         console.error(err.message)
-        res.status(400).render('register', { title: 'Register Page', layout: 'auth', error: err.message })
+        res.status(400).render('verificationViews/register', { title: 'Register Page', layout: 'auth', error: err.message })
     }
 
 })
@@ -52,7 +52,7 @@ authController.post('/login', async (req, res) => {
 
     } catch(err){
         console.error(err.message)
-        res.status(400).render('login', { title: 'Login Page', layout: 'auth', error: err.message })
+        res.status(400).render('verificationViews/login', { title: 'Login Page', layout: 'auth', error: err.message })
     }
 
 })

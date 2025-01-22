@@ -4,18 +4,18 @@ const homeController = Router();
 
 homeController.get('/', (req, res) => {
 
-    res.render('home', { title: 'Planet Pizza' })
+    res.render('homeViews/home', { title: 'Planet Pizza' })
 
 })
 
 homeController.get('/about', (req, res) => {
     
-    res.render('about', { title: 'About Page' })
+    res.render('homeViews/about', { title: 'About Page' })
 
 })
 
 homeController.get('/about-contacts', (req, res) => {
-    res.render('contacts', { title: 'Contacts' })
+    res.render('homeViews/contacts', { title: 'Contacts' })
 })
 
 
