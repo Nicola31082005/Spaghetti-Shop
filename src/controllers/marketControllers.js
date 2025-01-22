@@ -16,8 +16,6 @@ marketController.get('/pizzas/:id', (req, res) => {
 
     res.render('details', { title: "Details", pizza: currentPizza })
     
-
-
 })
 
 
