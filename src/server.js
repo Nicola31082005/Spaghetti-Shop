@@ -2,6 +2,9 @@ import express from 'express';
 import handlebars from 'express-handlebars';
 import routes from './routes.js';
 import checkAuthentication from './middlewares/authenticationState.js';
+import 'dotenv/config'
+import connectDB from '../config/db.js';
+
 
 const app = express();
 
@@ -21,6 +24,10 @@ app.use(express.static('public'));
 
 // Your route handlers
 app.use(routes);  // Routes should come after middleware
+
+
+// Connect with MongoDB
+connectDB()
 
 // Start server
 app.listen(5000, () => console.log('Server listens on port: 5000'));
