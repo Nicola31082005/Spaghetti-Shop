@@ -1,8 +1,8 @@
 import PizzasCollection from "../models/Pizza.js";
+import { ObjectId } from 'mongodb'
 
 
-
-export default async function getAllPizzas() {
+export async function getAllPizzas() {
   
   try {
  
@@ -15,3 +15,18 @@ export default async function getAllPizzas() {
   }
 
 } 
+
+
+export async function getOnePizza(pizzaId) {
+  
+  try {
+
+    const currentPizza = await PizzasCollection.findById(pizzaId)
+
+    return currentPizza
+
+  } catch(err) {
+    console.error(err.message)
+  }
+
+}
