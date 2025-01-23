@@ -5,9 +5,11 @@ import getAllPizzas from "../services/pizzaService.js";
 const marketController = Router();
 
 
-marketController.get('/pizzas', (req, res) => {
-    const pizzas = getAllPizzas()
-    res.render('marketViews/pizzas', { title: 'Pizzas', pizzas: pizzas })
+marketController.get('/pizzas', async (req, res) => {
+    const pizzas = await getAllPizzas()
+
+
+    res.render('marketViews/pizzas', { title: 'Pizzas', pizzas })
 })
 
 marketController.get('/pizzas/:id', (req, res) => {

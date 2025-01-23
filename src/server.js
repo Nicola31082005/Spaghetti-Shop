@@ -9,7 +9,7 @@ import connectDB from '../config/db.js';
 const app = express();
 
 // Set up Handlebars
-app.engine('hbs', handlebars.engine({ extname: 'hbs' }));
+app.engine('hbs', handlebars.engine({ extname: 'hbs', runtimeOptions: { allowProtoPropertiesByDefault: true } }));
 app.set('view engine', 'hbs');
 app.set('views', 'src/views');
 
