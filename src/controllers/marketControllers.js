@@ -1,5 +1,6 @@
 import { Router } from "express";
 import  { getOnePizza, getAllPizzas } from "../services/pizzaService.js";
+import { addToCart, getCart } from "../services/cartService.js";
 
 const marketController = Router();
 
@@ -17,6 +18,30 @@ marketController.get('/pizzas/:id', async (req, res) => {
 
     res.render('marketViews/details', { title: "Details", pizza: currentPizza })
     
+})
+
+marketController.get('/cart', async (req, res) => {
+
+    const cart = getCart();
+
+    res.render('marketViews/cart', { title: 'Checkout', cart: cart })
+
+})
+
+marketController.post('/cart/add/:id', async (req, res) => {
+
+    const pizzaId = req.params.id;
+
+    const pizzaOrder = {
+        pizzaId,
+        ...req.body
+    }
+
+
+   addToCart(pizzaOrder)
+
+   res.redirect('/cart')
+
 })
 
 
