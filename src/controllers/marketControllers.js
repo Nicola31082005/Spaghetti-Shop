@@ -1,9 +1,7 @@
 import { Router } from "express";
 import  { getOnePizza, getAllPizzas } from "../services/pizzaService.js";
 
-
 const marketController = Router();
-
 
 marketController.get('/pizzas', async (req, res) => {
     
@@ -17,14 +15,9 @@ marketController.get('/pizzas/:id', async (req, res) => {
 
     const currentPizza = await getOnePizza(currentId)
 
-    
-
     res.render('marketViews/details', { title: "Details", pizza: currentPizza })
     
-
-    
 })
-
 
 
 export default marketController

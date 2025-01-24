@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const logoutLink = document.getElementById('logout-link');
-    console.log(logoutLink); // Verify if the element is found
-
+   
     if (logoutLink) {
         logoutLink.addEventListener('click', (e) => {
             e.preventDefault();
@@ -13,3 +12,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const toggleIngredientsButton = document.getElementById('toggle-ingredients');
+
+    console.log(toggleIngredientsButton);
+
+    toggleIngredientsButton.addEventListener('click', function () {
+        const ingredientsSection = document.getElementById('ingredients-section');
+        if (ingredientsSection.classList.contains('hidden')) {
+          ingredientsSection.classList.remove('hidden');
+        } else {
+          ingredientsSection.classList.add('hidden');
+        }
+      });
+
+
+})
