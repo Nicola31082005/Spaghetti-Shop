@@ -3,17 +3,12 @@ const cart = []
 
 
 export function addToCart(data) {
- 
     cart.push(data)
-
 }
 
 
-
 export function getCart() {
-    
     return cart
-
 }
 
 
@@ -23,9 +18,11 @@ export function updateCart(orderId, operator) {
     
     switch (operator) {
         case 'increase':
+            if (current.quantity >= 10) return
             current.quantity++;
             break;
         case 'decrease':
+            if (current.quantity <= 1) return
             current.quantity--;
             break;
         case 'remove':
@@ -35,6 +32,5 @@ export function updateCart(orderId, operator) {
     }
 
     current.totalPrice = current.quantity * current.price  
-
 
 }
