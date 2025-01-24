@@ -55,11 +55,11 @@ marketController.post('/cart/update/:id', (req, res) => {
 
     const orderId = req.params.id;
 
-    updateCart(orderId)
+    const operator = req.body.action;
+
+    updateCart(orderId, operator)
 
     res.redirect('/cart')
-
-
 
 })
 

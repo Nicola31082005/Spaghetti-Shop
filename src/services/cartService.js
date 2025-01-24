@@ -17,11 +17,12 @@ export function getCart() {
 }
 
 
-export function updateCart(orderId) {
+export function updateCart(orderId, operator) {
     
     const current = cart.find(order => order._id === orderId)
+    
+    operator === 'increase' ? current.quantity++ : current.quantity--;
 
-    current.quantity++;
-    current.totalPrice = current.quantity * current.price  
+    current.totalPrice = current.quantity * current.price;
 
 }
