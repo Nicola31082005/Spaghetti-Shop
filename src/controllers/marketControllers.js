@@ -32,8 +32,14 @@ marketController.post('/cart/add/:id', async (req, res) => {
 
     const pizzaId = req.params.id;
 
+    let { name } = await getOnePizza(pizzaId)
+    
+
+    console.log(name);
+    
+
     const pizzaOrder = {
-        pizzaId,
+        pizzaName: name,
         ...req.body
     }
 
