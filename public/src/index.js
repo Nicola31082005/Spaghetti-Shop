@@ -19,8 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const toggleIngredientsButton = document.getElementById('toggle-ingredients');
 
-    console.log(toggleIngredientsButton);
-
     toggleIngredientsButton.addEventListener('click', function () {
         const ingredientsSection = document.getElementById('ingredients-section');
         if (ingredientsSection.classList.contains('hidden')) {
