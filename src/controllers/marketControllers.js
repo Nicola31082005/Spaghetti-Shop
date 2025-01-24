@@ -63,5 +63,15 @@ marketController.post('/cart/update/:id', (req, res) => {
 
 })
 
+marketController.post('/cart/remove/:id', (req, res) => {
+
+    const orderId = req.params.id;
+
+    updateCart(orderId, 'remove')
+
+    res.redirect('/cart')
+
+})
+
 
 export default marketController
