@@ -25,7 +25,9 @@ marketController.get('/cart', async (req, res) => {
 
     const cart = getCart();
 
-    res.render('marketViews/cart', { title: 'Checkout', cart: cart })
+    let cartTotal = cart.reduce((accumulator, item) => accumulator += item.totalPrice, 0)
+
+    res.render('marketViews/cart', { title: 'Checkout', cart: cart, cartTotal })
 
 })
 
