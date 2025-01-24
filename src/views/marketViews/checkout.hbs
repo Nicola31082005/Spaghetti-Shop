@@ -1,0 +1,38 @@
+<section class="container mx-auto py-12">
+  <h1 class="text-3xl font-bold text-gray-800 mb-8">Your Cart</h1>
+
+  {{#if cart.length}}
+  <table class="w-full border-collapse border border-gray-300">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="border border-gray-300 px-4 py-2 text-left">Pizza</th>
+        <th class="border border-gray-300 px-4 py-2 text-left">Dough</th>
+        <th class="border border-gray-300 px-4 py-2 text-left">Quantity</th>
+        <th class="border border-gray-300 px-4 py-2 text-left">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each cart}}
+      <tr>
+        <td class="border border-gray-300 px-4 py-2">{{this.pizzaId}}</td>
+        <td class="border border-gray-300 px-4 py-2">{{this.dough}}</td>
+        <td class="border border-gray-300 px-4 py-2">{{this.quantity}}</td>
+        <td class="border border-gray-300 px-4 py-2">
+          <form method="POST" action="/cart/remove/{{this.pizzaId}}">
+            <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700">Remove</button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <div class="mt-8">
+    <a href="/checkout" class="inline-block bg-green-600 text-white text-lg font-medium py-3 px-6 rounded-lg hover:bg-green-700 transition">
+      Proceed to Checkout
+    </a>
+  </div>
+  {{else}}
+  <p class="text-gray-600">Your cart is empty. <a href="/pizzas" class="text-blue-600 hover:text-blue-800">Go back to the menu</a>.</p>
+  {{/if}}
+</section>
