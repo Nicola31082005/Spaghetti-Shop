@@ -2,37 +2,90 @@
   <h1 class="text-3xl font-bold text-gray-800 mb-8">Your Cart</h1>
 
   {{#if cart.length}}
-  <table class="w-full border-collapse border border-gray-300">
-    <thead class="bg-gray-200">
-      <tr>
-        <th class="border border-gray-300 px-4 py-2 text-left">Pizza</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">Dough</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">Quantity</th>
-        <th class="border border-gray-300 px-4 py-2 text-left">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each cart}}
-      <tr>
-        <td class="border border-gray-300 px-4 py-2">{{this.pizzaName}}</td>
-        <td class="border border-gray-300 px-4 py-2">{{this.dough}}</td>
-        <td class="border border-gray-300 px-4 py-2">{{this.quantity}}</td>
-        <td class="border border-gray-300 px-4 py-2">
-          <form method="POST" action="/cart/remove/{{this.pizzaId}}">
-            <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700">Remove</button>
-          </form>
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
+  <!-- Cart Table -->
+  <div class="overflow-x-auto bg-white shadow-lg rounded-lg border border-gray-300">
+    <table class="w-full text-left border-collapse">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="border-b border-gray-300 px-6 py-4 font-medium text-gray-600">Pizza</th>
+          <th class="border-b border-gray-300 px-6 py-4 font-medium text-gray-600">Dough</th>
+          <th class="border-b border-gray-300 px-6 py-4 font-medium text-gray-600">Quantity</th>
+          <th class="border-b border-gray-300 px-6 py-4 font-medium text-gray-600">Price</th>
+          <th class="border-b border-gray-300 px-6 py-4 font-medium text-gray-600">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each cart}}
+        <tr class="border-b hover:bg-gray-50 transition">
+          <!-- Pizza Name -->
+          <td class="px-6 py-4">
+            <span class="font-medium text-gray-800">{{this.pizzaName}}</span>
+          </td>
 
-  <div class="mt-8">
-    <a href="/checkout" class="inline-block bg-green-600 text-white text-lg font-medium py-3 px-6 rounded-lg hover:bg-green-700 transition">
+          <!-- Dough -->
+          <td class="px-6 py-4 text-gray-600">{{this.dough}}</td>
+
+          <!-- Quantity -->
+          <td class="px-6 py-4">
+            <div class="flex items-center space-x-2">
+              <!-- Decrease Quantity -->
+              <form method="POST" action="/cart/update/{{this.pizzaId}}">
+                <input type="hidden" name="action" value="decrease" />
+                <button type="submit" class="text-gray-600 hover:text-red-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
+                  </svg>
+                </button>
+              </form>
+
+              <!-- Quantity Value -->
+              <span class="text-gray-800 font-medium">{{this.quantity}}</span>
+
+              <!-- Increase Quantity -->
+              <form method="POST" action="/cart/update/{{this._id}}">
+                <input type="hidden" name="action" value="increase" />
+                <button type="submit" class="text-gray-600 hover:text-green-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </td>
+
+          <!-- Price -->
+          <td class="px-6 py-4 text-gray-800 font-medium">${{this.totalPrice}}</td>
+
+          <!-- Remove Button -->
+          <td class="px-6 py-4">
+            <form method="POST" action="/cart/remove/{{this.pizzaId}}">
+              <button type="submit" class="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 focus:ring focus:ring-red-300 transition">
+                Remove
+              </button>
+            </form>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Cart Summary -->
+  <div class="flex flex-col lg:flex-row justify-between items-center mt-8 bg-gray-100 border rounded-lg p-6">
+    <!-- Total Price -->
+    <div class="text-lg font-medium text-gray-800">
+      <span>Total: </span>
+      <span class="text-green-600 text-2xl font-bold">${{cartTotal}}</span>
+    </div>
+
+    <!-- Checkout Button -->
+    <a href="/checkout" class="mt-4 lg:mt-0 inline-block bg-green-600 text-white text-lg font-medium py-3 px-6 rounded-lg shadow-lg hover:bg-green-700 transition">
       Proceed to Checkout
     </a>
   </div>
+
   {{else}}
+  <!-- Empty Cart -->
   <p class="text-gray-600">Your cart is empty. <a href="/pizzas" class="text-blue-600 hover:text-blue-800">Go back to the menu</a>.</p>
   {{/if}}
 </section>
