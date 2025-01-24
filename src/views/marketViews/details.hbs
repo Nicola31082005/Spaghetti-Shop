@@ -42,13 +42,14 @@
             </button>
 
             <div id="ingredients-section" class="hidden mt-4 space-y-2">
-              {{#each pizza.ingredients}}
+              {{#each ingredients}}
               <div>
-                <input type="checkbox" id="ingredient-{{this}}" name="ingredients" value="{{this}}" checked class="mr-2"/>
-                <label for="ingredient-{{this}}" class="text-gray-800">{{this}}</label>
+                <input type="checkbox" id="ingredient-{{this.name}}" name="ingredients" value="{{this.name}}" {{#if this.isRequired }} checked disabled {{/if}} class="mr-2"/>
+                <label for="ingredient-{{this.name}}" class="text-gray-800">{{this.name}}</label>
               </div>
               {{/each}}
             </div>
+            
           </div>
 
           <!-- Quantity -->

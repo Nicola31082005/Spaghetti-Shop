@@ -17,7 +17,14 @@ marketController.get('/pizzas/:id', async (req, res) => {
 
     const currentPizza = await getOnePizza(currentId)
 
-    res.render('marketViews/details', { title: "Details", pizza: currentPizza })
+    const ingredientsWithStatus = currentPizza.ingredients.map((ingredient) => {
+        return {
+            name: ingredient,
+            isRequired: currentPizza.requiredIngredients.includes(ingredient)
+        };
+    })
+
+    res.render('marketViews/details', { title: "Details", pizza: currentPizza, ingredients: ingredientsWithStatus })
     
 })
 

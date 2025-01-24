@@ -7,7 +7,8 @@ const pizzaSchema = new Schema({
     imageUrl: { type: String, required: true },
     price: { type: Number, required: true },
     category: { type: String, required: true },
-    ingredients: { type: Array, required: true }
+    ingredients: { type: Array, required: true },
+    requiredIngredients: { type: Array },
 })
 
 
