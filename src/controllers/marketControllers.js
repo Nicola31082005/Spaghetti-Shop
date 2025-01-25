@@ -44,7 +44,12 @@ marketController.post('/cart/add/:id', async (req, res) => {
 
     let { name, price } = await getOnePizza(pizzaId)
     
+    if (req.body.quantity > 10) {
+        req.body.quantity = 10
+    }
+
     const totalPrice = req.body.quantity * price;
+
     
     const pizzaOrder = {
         _id: uuidv4(),
