@@ -2,6 +2,7 @@ import { Router } from "express";
 import  { getOnePizza, getAllPizzas } from "../services/pizzaService.js";
 import { addToCart, getCart, getCartTotal, updateCart } from "../services/cartService.js";
 import { v4 as uuidv4 } from 'uuid';
+import { checkout } from "../services/checkoutService.js";
 
 const marketController = Router();
 
@@ -93,6 +94,16 @@ marketController.get('/checkout', (req, res) => {
     const cartTotal = getCartTotal(cart)
     
     res.render('marketViews/checkout', { title: 'Checkout', cart, cartTotal })
+
+})
+
+marketController.post('/orders/create', async (req, res) => {
+
+    const { name, address, phone } = req.body;
+
+    const userInfo = { userId: req.userId, name, address, phone }
+
+    const result = await checkout(userInfo)
 
 })
 
