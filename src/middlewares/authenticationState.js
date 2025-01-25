@@ -5,6 +5,7 @@ function checkAuthentication(req, res, next) {
 
   if (user) {
     req.isAuthenticated = true; // Set authenticated status on the request object
+    req.userId = user.uid
   } else {
     req.isAuthenticated = false;
   }
