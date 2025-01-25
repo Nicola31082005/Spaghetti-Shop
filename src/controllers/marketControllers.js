@@ -34,7 +34,7 @@ marketController.get('/cart', async (req, res) => {
 
     let cartTotal = cart.reduce((accumulator, item) => accumulator += item.totalPrice, 0)
 
-    res.render('marketViews/cart', { title: 'Checkout', cart: cart, cartTotal })
+    res.render('marketViews/cart', { title: 'Checkout', cart: cart, cartTotal: cartTotal.toFixed(2) })
 
 })
 
