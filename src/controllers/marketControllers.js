@@ -33,9 +33,6 @@ marketController.get('/cart', async (req, res) => {
 
     const cart = getCart();
 
-    console.log(cart);
-    
-
     let cartTotal = getCartTotal(cart)
 
     res.render('marketViews/cart', { title: 'Checkout', cart: cart, cartTotal: cartTotal.toFixed(2) })
@@ -109,7 +106,7 @@ marketController.post('/orders/create', async (req, res) => {
     
     const result = await checkout(userInfo);
 
-    res.redirect('/')
+    res.redirect('/goodbye')
    } catch(err) {
     console.error(err.message);
    }

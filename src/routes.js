@@ -11,6 +11,10 @@ routes.use(authController)
 routes.use(marketController)
 
 
+routes.get('/goodbye', (req, res) => {
+    res.render('goodbye', { layout: false })
+})
+
 routes.get('*', (req, res) => {
     res.render('404', { title: 'Page not found' })
 })
