@@ -1,6 +1,6 @@
 import { Router } from "express";
 import  { getOnePizza, getAllPizzas } from "../services/pizzaService.js";
-import { addToCart, getCart, updateCart } from "../services/cartService.js";
+import { addToCart, getCart, getCartTotal, updateCart } from "../services/cartService.js";
 import { v4 as uuidv4 } from 'uuid';
 
 const marketController = Router();
@@ -32,7 +32,7 @@ marketController.get('/cart', async (req, res) => {
 
     const cart = getCart();
 
-    let cartTotal = cart.reduce((accumulator, item) => accumulator += item.totalPrice, 0)
+    let cartTotal = getCartTotal(cart)
 
     res.render('marketViews/cart', { title: 'Checkout', cart: cart, cartTotal: cartTotal.toFixed(2) })
 
@@ -84,6 +84,15 @@ marketController.post('/cart/remove/:id', (req, res) => {
     updateCart(orderId, 'remove')
 
     res.redirect('/cart')
+
+})
+
+marketController.get('/checkout', (req, res) => {
+
+    const cart = getCart()
+    const cartTotal = getCartTotal(cart)
+    
+    res.render('marketViews/checkout', { title: 'Checkout', cart, cartTotal })
 
 })
 

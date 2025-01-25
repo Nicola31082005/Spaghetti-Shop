@@ -11,6 +11,11 @@ export function getCart() {
     return cart
 }
 
+export function getCartTotal(cart) {
+    const cartTotal = cart.reduce((accumulator, currentValue) => accumulator += currentValue.totalPrice, 0);
+    return cartTotal;
+}
+
 
 export function updateCart(orderId, operator) {
     
@@ -34,3 +39,4 @@ export function updateCart(orderId, operator) {
     current.totalPrice = current.quantity * current.price  
 
 }
+
