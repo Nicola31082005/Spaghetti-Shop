@@ -30,4 +30,4 @@ app.use(routes);  // Routes should come after middleware
 connectDB()
 
 // Start server
-app.listen(5000, () => console.log('Server listens on port: 5000'));
+app.listen(5000, () => console.log(`Server listens on port: ${process.env.PORT}`));
