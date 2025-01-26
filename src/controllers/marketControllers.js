@@ -31,6 +31,11 @@ marketController.get('/pizzas/:id', async (req, res) => {
 
 marketController.get('/cart', async (req, res) => {
 
+    if (!req.isAuthenticated) {
+        res.redirect('/login')
+        res.end()
+    }
+    
     const cart = getCart();
 
     let cartTotal = getCartTotal(cart)
@@ -89,6 +94,11 @@ marketController.post('/cart/remove/:id', (req, res) => {
 })
 
 marketController.get('/checkout', (req, res) => {
+
+    if (!req.isAuthenticated) {
+        res.redirect('/login')
+        res.end()
+    }
 
     const cart = getCart()
     const cartTotal = getCartTotal(cart)
