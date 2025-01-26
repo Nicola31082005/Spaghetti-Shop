@@ -2,16 +2,19 @@ import express from 'express';
 import handlebars from 'express-handlebars';
 import routes from './routes.js';
 import checkAuthentication from './middlewares/authenticationState.js';
-import 'dotenv/config'
+import 'dotenv/config';
 import connectDB from '../config/db.js';
+import path from 'path';
 
-
+// Fix: Set views path properly relative to project root
 const app = express();
 
 // Set up Handlebars
 app.engine('hbs', handlebars.engine({ extname: 'hbs', runtimeOptions: { allowProtoPropertiesByDefault: true } }));
 app.set('view engine', 'hbs');
-app.set('views', 'src/views');
+
+// Correct the views path to point to src/views
+app.set('views', path.join(process.cwd(), 'src', 'views'));  // Use process.cwd() for project root
 
 // Middleware for authentication check (before routes)
 app.use(checkAuthentication);  // Ensure this is before the routes so the auth state is available in templates
@@ -25,11 +28,10 @@ app.use(express.static('public'));
 // Your route handlers
 app.use(routes);  // Routes should come after middleware
 
-
 // Connect with MongoDB
-connectDB()
+connectDB();
 
 const PORT = process.env.PORT || 5000;
 
 // Start server
-app.listen(5000, () => console.log(`Server listens on port: ${PORT}`));
+app.listen(PORT, () => console.log(`Server listens on port: ${PORT}`));
