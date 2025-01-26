@@ -34,7 +34,7 @@ marketController.get('/cart', async (req, res) => {
     const cart = getCart();
     let cartTotal = getCartTotal(cart)
 
-    res.render('marketViews/cart', { title: 'Checkout', cart, cartTotal: cartTotal.toFixed(2) })
+    res.render('marketViews/cart', { title: 'Shopping Cart', cart, cartTotal: cartTotal.toFixed(2) })
 })
 
 marketController.post('/cart/add/:id', async (req, res) => {
