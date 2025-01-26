@@ -22,8 +22,9 @@ app.use(checkAuthentication);  // Ensure this is before the routes so the auth s
 // Body parser middleware
 app.use(express.urlencoded({ extended: false }));
 
-// Serve static files (e.g., CSS, images, JS)
-app.use(express.static('public'));
+// Serve static files (e.g., CSS, images, JS) from the 'public' directory
+app.use(express.static(path.join(process.cwd(), 'public')));
+
 
 // Your route handlers
 app.use(routes);  // Routes should come after middleware
