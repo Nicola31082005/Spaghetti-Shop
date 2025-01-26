@@ -29,5 +29,7 @@ app.use(routes);  // Routes should come after middleware
 // Connect with MongoDB
 connectDB()
 
+const PORT = process.env.PORT || 5000;
+
 // Start server
-app.listen(5000, () => console.log(`Server listens on port: ${process.env.PORT}`));
+app.listen(5000, () => console.log(`Server listens on port: ${PORT}`));
