@@ -14,9 +14,7 @@ marketController.get('/pizzas', async (req, res) => {
 })
 
 marketController.get('/pizzas/:id', async (req, res) => {
-    const currentId = req.params.id;
-
-    const currentPizza = await getOnePizza(currentId)
+    const currentPizza = await getOnePizza(req.params.id)
 
     const ingredientsWithStatus = currentPizza.ingredients.map((ingredient) => {
         return {
@@ -24,28 +22,22 @@ marketController.get('/pizzas/:id', async (req, res) => {
             isRequired: currentPizza.requiredIngredients.includes(ingredient)
         };
     })
-
-    res.render('marketViews/details', { title: "Details", pizza: currentPizza, ingredients: ingredientsWithStatus })
-    
+    res.render('marketViews/details', { title: "Details", pizza: currentPizza, ingredients: ingredientsWithStatus })    
 })
 
 marketController.get('/cart', async (req, res) => {
-
     if (!req.isAuthenticated) {
         res.redirect('/login')
         res.end()
     }
     
     const cart = getCart();
-
     let cartTotal = getCartTotal(cart)
 
-    res.render('marketViews/cart', { title: 'Checkout', cart: cart, cartTotal: cartTotal.toFixed(2) })
-
+    res.render('marketViews/cart', { title: 'Checkout', cart, cartTotal: cartTotal.toFixed(2) })
 })
 
 marketController.post('/cart/add/:id', async (req, res) => {
-
     const pizzaId = req.params.id;
 
     let { name, price } = await getOnePizza(pizzaId)
@@ -54,12 +46,9 @@ marketController.post('/cart/add/:id', async (req, res) => {
         req.body.quantity = 10
     }
 
-    const totalPrice = req.body.quantity * price;
-
-    
     const pizzaOrder = {
         _id: uuidv4(),
-        totalPrice,
+        totalPrice: req.body.quantity * price,
         price,    
         pizzaName: name,
         ...req.body
@@ -68,7 +57,6 @@ marketController.post('/cart/add/:id', async (req, res) => {
    addToCart(pizzaOrder)
 
    res.redirect('/cart')
-
 })
 
 marketController.post('/cart/update/:id', (req, res) => {
@@ -104,11 +92,9 @@ marketController.get('/checkout', (req, res) => {
     const cartTotal = getCartTotal(cart)
     
     res.render('marketViews/checkout', { title: 'Checkout', cart, cartTotal })
-
 })
 
 marketController.post('/orders/create', async (req, res) => {
-
    try {
     const { name, address, phone } = req.body;
     
@@ -121,6 +107,5 @@ marketController.post('/orders/create', async (req, res) => {
     console.error(err.message);
    }
 })
-
 
 export default marketController

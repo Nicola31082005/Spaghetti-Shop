@@ -54,11 +54,9 @@ authController.post('/login', async (req, res) => {
         console.error(err.message)
         res.status(400).render('verificationViews/login', { title: 'Login Page', layout: 'auth', error: err.message })
     }
-
 })
 
 authController.get('/logout', async (req, res) => {
-
     try {
         await logout()
         req.isAuthenticated = false;

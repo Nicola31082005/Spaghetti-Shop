@@ -5,14 +5,11 @@ export function validateRegistration({ password, confirmPassword }) {
     if (password !== confirmPassword) {
         return { success: false, message: "Passwords don't match" }
     }
-
     if (password.length < 6) {
         return { success: false, message: "Password must be at least 6 character long" }
     }
-
     return { success: true }
 }
-
 
 export async function register({ email, password }) {
    try {
@@ -31,7 +28,6 @@ export async function login({ email, password }) {
         throw new Error(error.message)
     }
 }
-
 
 export async function logout() {
     try {

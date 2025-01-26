@@ -6,7 +6,6 @@ export function addToCart(data) {
     cart.push(data)
 }
 
-
 export function getCart() {
     return cart
 }
@@ -16,9 +15,7 @@ export function getCartTotal(cart) {
     return cartTotal;
 }
 
-
-export function updateCart(orderId, operator) {
-    
+export function updateCart(orderId, operator) {  
     const current = cart.find(order => order._id === orderId)
     
     switch (operator) {
@@ -37,6 +34,5 @@ export function updateCart(orderId, operator) {
     }
 
     current.totalPrice = current.quantity * current.price  
-
 }
 
