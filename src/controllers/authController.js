@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import cookieParser from 'cookie-parser';
 import { login, logout, register, validateRegistration } from '../services/authService.js';
+import { setAuthCookie } from '../services/cookiesService.js';
 
 const COOKIE_SECRET = 'your_secret_key_here'; // Ensure this matches the one in authService.js
 const authController = Router();
@@ -31,11 +32,11 @@ authController.post('/register', async (req, res) => {
   }
 
   try {
-    const userCredential = await register({ email: data.email, password: data.password });
+    const { token } = await register({ email: data.email, password: data.password });
 
-    if (userCredential) {
-      res.redirect('/login');
-    }
+    setAuthCookie(res, token)
+
+      res.redirect('/')
   } catch (err) {
     console.error(err.message);
     res.status(400).render('verificationViews/register', { title: 'Register Page', layout: 'auth', error: err.message });
@@ -50,11 +51,8 @@ authController.post('/login', async (req, res) => {
     const { token } = await login({ email: data.email, password: data.password });
 
     // Set a secure, HTTP-only cookie with the token
-    res.cookie('authToken', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-      maxAge: 3600000, // 1 hour
-    });
+    setAuthCookie(res, token)
+
 
     res.redirect('/');
   } catch (err) {

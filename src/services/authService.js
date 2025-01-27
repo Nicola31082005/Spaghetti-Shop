@@ -17,7 +17,15 @@ export function validateRegistration({ password, confirmPassword }) {
 export async function register({ email, password }) {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    return userCredential;
+
+    // Generate JWT token immediately after registration
+    const idToken = await userCredential.user.getIdToken();
+    const payload = { uid: userCredential.user.uid, email: userCredential.user.email };
+
+    // Sign a token to store in cookies
+    const token = jwt.sign(payload, COOKIE_SECRET, { expiresIn: '1h' });
+
+    return { token, userCredential, idToken };
   } catch (error) {
     throw new Error(error.message);
   }
