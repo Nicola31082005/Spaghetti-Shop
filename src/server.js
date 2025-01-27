@@ -5,9 +5,13 @@ import checkAuthentication from './middlewares/authenticationState.js';
 import 'dotenv/config';
 import connectDB from '../config/db.js';
 import path from 'path';
+import cookieParser from 'cookie-parser';
+
+
 
 // Fix: Set views path properly relative to project root
 const app = express();
+
 
 // Set up Handlebars
 app.engine('hbs', handlebars.engine({ extname: 'hbs', runtimeOptions: { allowProtoPropertiesByDefault: true } }));
@@ -15,6 +19,8 @@ app.set('view engine', 'hbs');
 
 // Correct the views path to point to src/views
 app.set('views', path.join(process.cwd(), 'src', 'views'));  // Use process.cwd() for project root
+
+app.use(cookieParser()); // Add cookie-parser middleware
 
 // Middleware for authentication check (before routes)
 app.use(checkAuthentication);  // Ensure this is before the routes so the auth state is available in templates

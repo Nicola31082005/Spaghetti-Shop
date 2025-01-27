@@ -1,18 +1,28 @@
-import { auth } from "../../config/firebase.js"; // Assuming your firebase configuration is correct
+import jwt from 'jsonwebtoken';
+
+const COOKIE_SECRET = 'your_secret_key_here'; // Same as above
 
 function checkAuthentication(req, res, next) {
-  const user = auth.currentUser;  // This will give you the current logged-in user synchronously
+  const token = req.cookies.authToken;
 
-  if (user) {
-    req.isAuthenticated = true; // Set authenticated status on the request object
-    req.userId = user.uid
+  if (token) {
+    try {
+      // Verify the token
+      const decoded = jwt.verify(token, COOKIE_SECRET);
+      req.isAuthenticated = true;
+      req.user = decoded; // Attach user info to the request
+      res.locals.isAuthenticated = true;
+    } catch (err) {
+      console.error('Invalid token:', err.message);
+      req.isAuthenticated = false;
+      res.locals.isAuthenticated = false;
+    }
   } else {
     req.isAuthenticated = false;
+    res.locals.isAuthenticated = false;
   }
 
-  res.locals.isAuthenticated = req.isAuthenticated; // Make it available to all templates
-
-  next(); // Proceed to the next middleware or route handler
+  next();
 }
 
 export default checkAuthentication;
