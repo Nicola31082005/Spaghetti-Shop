@@ -1,5 +1,5 @@
 import { Router } from "express";
-import  { getOnePizza, getAllPizzas } from "../services/pizzaService.js";
+import  { getOnePizza, getAllPizzas, getAllPizzasWithRetry } from "../services/pizzaService.js";
 import { addToCart, getCart, getCartTotal, updateCart } from "../services/cartService.js";
 import { v4 as uuidv4 } from 'uuid';
 import { checkout } from "../services/checkoutService.js";
@@ -8,7 +8,7 @@ const marketController = Router();
 
 marketController.get('/pizzas', async (req, res) => {
     
-    const pizzas = await getAllPizzas()
+    const pizzas = await getAllPizzasWithRetry()
 
     res.render('marketViews/pizzas', { title: 'Pizzas', pizzas })
 })
